@@ -14,20 +14,24 @@ namespace Tp1
             //create a new server
             var server = new UdpListener();
 
+            Console.WriteLine("IP Address of the server");
+            string ipAddress = Console.ReadLine();
+
             //start listening for messages and copy the messages back to the client
             Task.Factory.StartNew(async () =>
             {
                 while (true)
                 {
                     var received = await server.Receive();
-                    server.Reply("copy " + received.Message, received.Sender);
+                    server.Reply("ack " + received.Message, received.Sender);
+                    Console.WriteLine(received.Message);
                     if (received.Message == "quit")
                         break;
                 }
             });
 
             //create a new client
-            var client = UdpUser.ConnectTo("127.0.0.1", 32123);
+            var client = UdpUser.ConnectTo(ipAddress, 32123);
 
             //wait for reply messages from server and send them to console 
             Task.Factory.StartNew(async () =>
