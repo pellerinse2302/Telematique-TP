@@ -103,3 +103,14 @@ C:\Users\TourSeb\Downloads\Source_Code\DataLinkSimulator OpenGL\DataLinkSimulato
 C:\Users\TourSeb\Downloads\Source_Code\DataLinkSimulator OpenGL\DataLinkSimulator\obj\Debug\DataLinkSimulator.FrmMain.resources
 C:\Users\TourSeb\Downloads\Source_Code\DataLinkSimulator OpenGL\DataLinkSimulator\obj\Debug\DataLinkSimulator.Properties.Resources.resources
 C:\Users\TourSeb\Downloads\Source_Code\DataLinkSimulator OpenGL\DataLinkSimulator\obj\Debug\DataLinkSimulator.csproj.GenerateResource.Cache
+C:\Users\Sebastien\Documents\GitHub\Telematique-TP\DataLinkSimulator OpenGL\DataLinkSimulator\obj\Debug\DataLinkSimulator.exe
+C:\Users\Sebastien\Documents\GitHub\Telematique-TP\DataLinkSimulator OpenGL\DataLinkSimulator\obj\Debug\DataLinkSimulator.pdb
+C:\Users\Sebastien\Documents\GitHub\Telematique-TP\DataLinkSimulator OpenGL\DataLinkSimulator\bin\Debug\DataLinkSimulator.exe
+C:\Users\Sebastien\Documents\GitHub\Telematique-TP\DataLinkSimulator OpenGL\DataLinkSimulator\bin\Debug\DataLinkSimulator.pdb
+C:\Users\Sebastien\Documents\GitHub\Telematique-TP\DataLinkSimulator OpenGL\DataLinkSimulator\bin\Debug\Tao.FreeGlut.xml
+C:\Users\Sebastien\Documents\GitHub\Telematique-TP\DataLinkSimulator OpenGL\DataLinkSimulator\bin\Debug\Tao.OpenGl.xml
+C:\Users\Sebastien\Documents\GitHub\Telematique-TP\DataLinkSimulator OpenGL\DataLinkSimulator\bin\Debug\Tao.Platform.Windows.xml
+C:\Users\Sebastien\Documents\GitHub\Telematique-TP\DataLinkSimulator OpenGL\DataLinkSimulator\obj\Debug\DataLinkSimulator.csprojResolveAssemblyReference.cache
+C:\Users\Sebastien\Documents\GitHub\Telematique-TP\DataLinkSimulator OpenGL\DataLinkSimulator\obj\Debug\DataLinkSimulator.FrmMain.resources
+C:\Users\Sebastien\Documents\GitHub\Telematique-TP\DataLinkSimulator OpenGL\DataLinkSimulator\obj\Debug\DataLinkSimulator.Properties.Resources.resources
+C:\Users\Sebastien\Documents\GitHub\Telematique-TP\DataLinkSimulator OpenGL\DataLinkSimulator\obj\Debug\DataLinkSimulator.csproj.GenerateResource.Cache
