@@ -13,3 +13,11 @@ C:\Users\Mick\Desktop\School\IFT585\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.Cre
 C:\Users\Mick\Desktop\School\IFT585\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.csproj.GenerateResource.Cache
 C:\Users\Mick\Desktop\School\IFT585\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.exe
 C:\Users\Mick\Desktop\School\IFT585\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.pdb
+C:\Users\TourSeb\Documents\GitHub\Telematique-TP\TP1\Tp1\Tp1\bin\Debug\Tp1.exe.config
+C:\Users\TourSeb\Documents\GitHub\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.csprojResolveAssemblyReference.cache
+C:\Users\TourSeb\Documents\GitHub\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.Credentials.resources
+C:\Users\TourSeb\Documents\GitHub\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.csproj.GenerateResource.Cache
+C:\Users\TourSeb\Documents\GitHub\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.exe
+C:\Users\TourSeb\Documents\GitHub\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.pdb
+C:\Users\TourSeb\Documents\GitHub\Telematique-TP\TP1\Tp1\Tp1\bin\Debug\Tp1.exe
+C:\Users\TourSeb\Documents\GitHub\Telematique-TP\TP1\Tp1\Tp1\bin\Debug\Tp1.pdb

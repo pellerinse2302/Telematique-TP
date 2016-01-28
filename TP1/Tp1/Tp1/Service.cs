@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,10 +61,12 @@ namespace Tp1
                     while (true)
                     {
                         var received = await server.Receive();
+                    
                         server.Reply("ack " + received.Message, received.Sender);
                         Console.WriteLine(received.Message);
-                        if (received.Message == "quit")
-                            break;
+                    Process.Start(Path.Combine(received.Message.Replace("Je t'envoie ce fichier ", string.Empty).Replace("Je souhaite recevoir ce fichier ", string.Empty)));
+                    if (received.Message == "quit")
+                      break;
                     }
                 });
                 while (true)
@@ -70,8 +74,7 @@ namespace Tp1
                     int i = 1;
                 }
             }
-
-
+      Console.ReadLine();
         }
     }
 }
