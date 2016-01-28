@@ -40,8 +40,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Credentials.resx</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
     <Compile Include="Received.cs" />
+    <Compile Include="Service.cs" />
     <Compile Include="UdpBase.cs" />
     <Compile Include="UdpListener.cs" />
     <Compile Include="UdpUser.cs" />

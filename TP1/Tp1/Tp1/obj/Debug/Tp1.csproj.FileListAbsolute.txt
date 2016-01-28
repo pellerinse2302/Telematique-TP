@@ -5,3 +5,11 @@ C:\Users\Sebastien\Documents\GitHub\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.pdb
 C:\Users\Sebastien\Documents\GitHub\Telematique-TP\TP1\Tp1\Tp1\bin\Debug\Tp1.exe
 C:\Users\Sebastien\Documents\GitHub\Telematique-TP\TP1\Tp1\Tp1\bin\Debug\Tp1.pdb
 C:\Users\Sebastien\Documents\GitHub\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.csprojResolveAssemblyReference.cache
+C:\Users\Mick\Desktop\School\IFT585\Telematique-TP\TP1\Tp1\Tp1\bin\Debug\Tp1.exe.config
+C:\Users\Mick\Desktop\School\IFT585\Telematique-TP\TP1\Tp1\Tp1\bin\Debug\Tp1.exe
+C:\Users\Mick\Desktop\School\IFT585\Telematique-TP\TP1\Tp1\Tp1\bin\Debug\Tp1.pdb
+C:\Users\Mick\Desktop\School\IFT585\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.csprojResolveAssemblyReference.cache
+C:\Users\Mick\Desktop\School\IFT585\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.Credentials.resources
+C:\Users\Mick\Desktop\School\IFT585\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.csproj.GenerateResource.Cache
+C:\Users\Mick\Desktop\School\IFT585\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.exe
+C:\Users\Mick\Desktop\School\IFT585\Telematique-TP\TP1\Tp1\Tp1\obj\Debug\Tp1.pdb
