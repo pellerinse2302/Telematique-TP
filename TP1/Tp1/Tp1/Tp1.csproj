@@ -40,6 +40,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Credentials.resx</DependentUpon>
     </Compile>
+    <Compile Include="Packet.cs" />
     <Compile Include="Received.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Submission.cs" />
