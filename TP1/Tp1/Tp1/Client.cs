@@ -25,7 +25,7 @@ namespace Tp1
             fileName = Console.ReadLine();
 
             /* Créer un socket */
-            var client = UdpUser.ConnectTo(Credentials.IPAddress, 32123);
+            
 
             if (choiceTask == 1)
             {
@@ -44,7 +44,7 @@ namespace Tp1
             else
             {
                 /* Envoyer au serveur qu'on souhaite recevoir un fichier */
-                client.Send("Je souhaite recevoir ce fichier " + fileName);
+                //client.Send("Je souhaite recevoir ce fichier " + fileName);
             }
         }
     }
