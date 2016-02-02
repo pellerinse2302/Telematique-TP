@@ -135,39 +135,19 @@ namespace Tp1
             packet[4] = BitConverter.GetBytes(DataLength);
             packet[5] = DATA;
 
-            return Combine(packet);
+            return Extensions.Combine(packet);
         }
-
         /// <summary>
         /// Permet de défaire le packet
         /// </summary>
         public void UnbuildPacket(Byte[] packet)
         {
-            SequenceNumber = BitConverter.ToInt32(SubArray(packet, 0, 4), 0);
-            AckNumber = BitConverter.ToInt32(SubArray(packet, 4, 4), 0);
-            FIN = BitConverter.ToBoolean(SubArray(packet, 8, 1), 0);
-            SOR = BitConverter.ToBoolean(SubArray(packet, 9, 1), 0);
-            DataLength = BitConverter.ToInt16(SubArray(packet, 10, 2), 0);
-            DATA = SubArray(packet, 12, DataLength);
-        }
-
-        public static byte[] Combine(params byte[][] arrays)
-        {
-            byte[] ret = new byte[arrays.Sum(x => x.Length)];
-            int offset = 0;
-            foreach (byte[] data in arrays)
-            {
-                Buffer.BlockCopy(data, 0, ret, offset, data.Length);
-                offset += data.Length;
-            }
-            return ret;
-        }
-
-        public static T[] SubArray<T>(this T[] data, int index, int length)
-        {
-            T[] result = new T[length];
-            Array.Copy(data, index, result, 0, length);
-            return result;
+            SequenceNumber = BitConverter.ToInt32(Extensions.SubArray(packet, 0, 4), 0);
+            AckNumber = BitConverter.ToInt32(Extensions.SubArray(packet, 4, 4), 0);
+            FIN = BitConverter.ToBoolean(Extensions.SubArray(packet, 8, 1), 0);
+            SOR = BitConverter.ToBoolean(Extensions.SubArray(packet, 9, 1), 0);
+            DataLength = BitConverter.ToInt16(Extensions.SubArray(packet, 10, 2), 0);
+            DATA = Extensions.SubArray(packet, 12, DataLength);
         }
         #endregion
     }

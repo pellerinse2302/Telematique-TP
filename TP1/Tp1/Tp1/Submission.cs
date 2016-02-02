@@ -8,9 +8,14 @@ namespace Tp1
         {
             byte[] bytes = System.IO.File.ReadAllBytes(filename);
 
-            Packet packet = new Packet(2, 1, false, false, Convert.ToInt16(bytes.Length), bytes);
+            int extraBytes = bytes.Length % 1024;
+            int loop = bytes.Length / 1024;
 
-            byte[] packetToSend = packet.BuildPacket();
+            for(int i = 0; i < loop; i++)
+            {
+                Packet packet = new Packet(i+1, 0, false, false, Convert.ToInt16(bytes.Length), Extensions.SubArray(bytes, i, 1024*(i+1)));
+                byte[] packetToSend = packet.BuildPacket();
+            }
         }
     }
 }

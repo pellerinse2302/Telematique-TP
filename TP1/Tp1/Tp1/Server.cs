@@ -29,6 +29,7 @@ namespace Tp1
             while (true)
             {
                 int i = 1;
+                i++;
             }
         }
     }
