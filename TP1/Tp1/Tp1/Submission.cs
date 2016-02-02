@@ -12,12 +12,9 @@ namespace Tp1
 
             Packet packet = new Packet(2, 1, false, false, Convert.ToInt16(bytes.Length), bytes);
 
-<<<<<<< HEAD
             packet.BuildPacket();
 
-=======
             byte[] packetToSend = packet.BuildPacket();
->>>>>>> refs/remotes/origin/master
         }
     }
 }
