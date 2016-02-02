@@ -127,14 +127,27 @@ namespace Tp1
         /// </summary>
         public Byte[] BuildPacket()
         {
-            Byte[] packet = new Byte[1036];
-            packet[0] = Convert.ToByte(SequenceNumber);
-            packet[4] = Convert.ToByte(AckNumber);
-            packet[8] = Convert.ToByte(FIN);
-            packet[9] = Convert.ToByte(SOR);
-            packet[10] = Convert.ToByte(DataLength);
-            packet[12] = Convert.ToByte(DATA);
-            return packet;
+            Byte[][] packet = new Byte[6][];
+            packet[0] = BitConverter.GetBytes(SequenceNumber);
+            packet[1] = BitConverter.GetBytes(AckNumber);
+            packet[2] = BitConverter.GetBytes(FIN);
+            packet[3] = BitConverter.GetBytes(SOR);
+            packet[4] = BitConverter.GetBytes(DataLength);
+            packet[5] = DATA;
+
+            return Combine(packet);
+        }
+
+        public static byte[] Combine(params byte[][] arrays)
+        {
+            byte[] ret = new byte[arrays.Sum(x => x.Length)];
+            int offset = 0;
+            foreach (byte[] data in arrays)
+            {
+                Buffer.BlockCopy(data, 0, ret, offset, data.Length);
+                offset += data.Length;
+            }
+            return ret;
         }
         #endregion
     }
