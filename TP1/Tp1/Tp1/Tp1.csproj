@@ -46,6 +46,7 @@
     <Compile Include="Received.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Service.cs" />
+    <Compile Include="SlidingWindow.cs" />
     <Compile Include="Submission.cs" />
     <Compile Include="UdpBase.cs" />
     <Compile Include="UdpListener.cs" />
