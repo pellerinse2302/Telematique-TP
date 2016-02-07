@@ -30,7 +30,7 @@ namespace Tp1
                     }
                     else
                     {
-                        var sender = new UdpUser();
+                        UdpUser sender = UdpUser.ConnectTo(received.Sender.Address.ToString(), received.Sender.Port);
 
                         byte[] bytes = System.IO.File.ReadAllBytes(System.Text.Encoding.UTF8.GetString(received.packet.DATA));
                         Submission submission = new Submission();

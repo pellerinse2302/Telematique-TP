@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Tp1
 {
-    class Submission : CommunicationBase
+    class Submission
     {
         public void submit(byte[] bytes, UdpUser socket)
         {
@@ -19,11 +19,7 @@ namespace Tp1
                 while (true)
                 {
                     var received = await socket.Receive();
-                    if (received.packet.AckNumber == 0)
-                    {
-                        Handshake = true;
-                    }
-                    else if (received.packet.AckNumber == window.Window.Peek().SequenceNumber)
+                    if (received.packet.AckNumber == window.Window.Peek().SequenceNumber)
                     {
                         window.Forward();
                         Console.WriteLine(received.packet.AckNumber);
@@ -31,28 +27,25 @@ namespace Tp1
                 }
             });
 
-            if (Handshake)
+            for (int i = 0; i < loop; i++)
             {
-                for (int i = 0; i < loop; i++)
-                {
-                    Packet packet = new Packet(i + 1, 0, false, false, Convert.ToInt32(1024), Extensions.SubArray(bytes, 1024 * i, 1024));
-                    //byte[] packetToSend = packet.BuildPacket();
-                    while (!window.CanForward)
-                    {
-
-                    }
-                    window.InsertPacket(packet);
-                    socket.Send(packet.BuildPacket());
-                }
-
-                Packet extraPacket = new Packet(loop + 1, 0, true, false, extraBytes, Extensions.SubArray(bytes, 1024 * (loop), extraBytes));
+                Packet packet = new Packet(i + 1, 0, false, false, Convert.ToInt32(1024), Extensions.SubArray(bytes, 1024 * i, 1024));
+                //byte[] packetToSend = packet.BuildPacket();
                 while (!window.CanForward)
                 {
 
                 }
-                window.InsertPacket(extraPacket);
-                socket.Send(extraPacket.BuildPacket());
+                window.InsertPacket(packet);
+                socket.Send(packet.BuildPacket());
             }
+
+            Packet extraPacket = new Packet(loop + 1, 0, true, false, extraBytes, Extensions.SubArray(bytes, 1024 * (loop), extraBytes));
+            while (!window.CanForward)
+            {
+
+            }
+            window.InsertPacket(extraPacket);
+            socket.Send(extraPacket.BuildPacket());
         }
         
     }
