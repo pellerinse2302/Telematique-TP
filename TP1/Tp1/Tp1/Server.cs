@@ -19,9 +19,8 @@ namespace Tp1
                 {
                     var received = await server.Receive();
 
-                    server.Reply("ack " + received.Message, received.Sender);
+                    server.Reply(new Packet(0, received.packet.SequenceNumber, false, true, 0, null).BuildPacket(), received.Sender);
                     Console.WriteLine(received.Message);
-                    Process.Start(Path.Combine(received.Message.Replace("Je t'envoie ce fichier ", string.Empty).Replace("Je souhaite recevoir ce fichier ", string.Empty)));
                     if (received.Message == "quit")
                         break;
                 }

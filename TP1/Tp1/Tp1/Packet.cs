@@ -27,6 +27,11 @@ namespace Tp1
             this.DataLength = dataLength;
             this.DATA = data;
         }
+
+        public Packet(Byte[] pkt)
+        {
+            UnbuildPacket(pkt);
+        }
         #endregion
 
         #region Propriétés
@@ -137,10 +142,18 @@ namespace Tp1
 
             return Extensions.Combine(packet);
         }
-
-
-
-
+        /// <summary>
+        /// Permet de défaire le packet
+        /// </summary>
+        public void UnbuildPacket(Byte[] packet)
+        {
+            SequenceNumber = BitConverter.ToInt32(Extensions.SubArray(packet, 0, 4), 0);
+            AckNumber = BitConverter.ToInt32(Extensions.SubArray(packet, 4, 4), 0);
+            FIN = BitConverter.ToBoolean(Extensions.SubArray(packet, 8, 1), 0);
+            SOR = BitConverter.ToBoolean(Extensions.SubArray(packet, 9, 1), 0);
+            DataLength = BitConverter.ToInt16(Extensions.SubArray(packet, 10, 2), 0);
+            DATA = Extensions.SubArray(packet, 12, DataLength);
+        }
         #endregion
     }
 }

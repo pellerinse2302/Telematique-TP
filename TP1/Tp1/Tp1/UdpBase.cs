@@ -21,7 +21,9 @@ namespace Tp1
             var result = await Client.ReceiveAsync();
             return new Received()
             {
-                Message = Encoding.ASCII.GetString(result.Buffer, 0, result.Buffer.Length),
+                //Message = Encoding.ASCII.GetString(result.Buffer, 0, result.Buffer.Length),
+                Message = string.Empty,
+                packet = new Packet(result.Buffer),
                 Sender = result.RemoteEndPoint
             };
         }
