@@ -28,5 +28,10 @@ namespace Tp1
             var datagram = Encoding.ASCII.GetBytes(message);
             Client.Send(datagram, datagram.Length, endpoint);
         }
+
+        public void Reply(byte[] message, IPEndPoint endpoint)
+        {
+            Client.Send(message, message.Length, endpoint);
+        }
     }
 }

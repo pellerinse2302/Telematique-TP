@@ -11,5 +11,6 @@ namespace Tp1
     {
         public IPEndPoint Sender;
         public string Message;
+        public Packet packet;
     }
 }

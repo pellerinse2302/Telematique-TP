@@ -13,9 +13,12 @@ namespace Tp1
         #endregion
 
         #region Constructeur
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
         public SlidingWindow()
         {
-            
+            this.Window = new Queue<Packet>();
         }
         #endregion
 
@@ -32,6 +35,17 @@ namespace Tp1
             set
             {
                 _window = value;
+            }
+        }
+
+        /// <summary>
+        /// Permet de savoir si on peut continuer à avancer la fenêtre
+        /// </summary>
+        public bool CanForward
+        {
+            get
+            {
+                return Window.Count < 3;
             }
         }
         #endregion

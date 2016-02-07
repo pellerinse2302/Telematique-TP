@@ -27,6 +27,11 @@ namespace Tp1
             this.DataLength = dataLength;
             this.DATA = data;
         }
+
+        public Packet(Byte[] pkt)
+        {
+            UnbuildPacket(pkt);
+        }
         #endregion
 
         #region Propriétés
