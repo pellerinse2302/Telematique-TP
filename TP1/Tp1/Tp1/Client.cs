@@ -52,8 +52,9 @@ namespace Tp1
                 byte[] bytes = System.IO.File.ReadAllBytes(fileName);
                 Submission submission = new Submission();
                              
-                Packet packet = new Packet(0, 0, false, false, bytes.Length, Encoding.ASCII.GetBytes(fileName));
+                Packet packet = new Packet(0, 0, false, false, bytes.Length, Encoding.ASCII.GetBytes(Path.GetFileName(Path.Combine(fileName))));
                 socket.Send(packet.BuildPacket());
+
                 while (!CommunicationBase.Handshake)
                 {
 
