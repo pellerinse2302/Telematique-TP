@@ -19,6 +19,24 @@ namespace Tp1
                 {
                     var received = await server.Receive();
 
+                    if(received.packet.SOR == false)
+                    {
+                        var receiver = new UdpListener();
+
+                        receiver.Reply(new Packet(0, received.packet.SequenceNumber, false, false, 0, new byte[0]).BuildPacket(), received.Sender);
+
+                        Reception reception = new Reception();
+                        reception.receive(receiver, System.Text.Encoding.UTF8.GetString(received.packet.DATA), received.packet.DataLength);
+                    }
+                    else
+                    {
+                        var sender = new UdpUser();
+
+                        byte[] bytes = System.IO.File.ReadAllBytes(System.Text.Encoding.UTF8.GetString(received.packet.DATA));
+                        Submission submission = new Submission();
+                        submission.submit(bytes, sender);
+                    }
+
                     server.Reply(new Packet(0, received.packet.SequenceNumber, false, true, 0, new byte[0]).BuildPacket(), received.Sender);
                     Console.WriteLine(received.Message);
                     if (received.Message == "quit")
@@ -27,8 +45,6 @@ namespace Tp1
             });
             while (true)
             {
-                int i = 1;
-                i++;
             }
         }
     }
