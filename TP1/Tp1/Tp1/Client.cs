@@ -24,6 +24,20 @@ namespace Tp1
             Console.WriteLine("\nEntrez le nom du fichier à traiter");
             fileName = Console.ReadLine();
 
+            UdpUser socket = UdpUser.ConnectTo(Credentials.IPAddress, 32123);
+
+            //wait for reply messages from server and send them to console 
+            Task.Factory.StartNew(async () =>
+            {
+                while (true)
+                {
+                    var received = await socket.Receive();
+                    if (received.packet.AckNumber == 0)
+                    {
+                        CommunicationBase.Handshake = true;
+                    }
+                }
+            });
 
             if (choiceTask == 1)
             {
@@ -35,8 +49,17 @@ namespace Tp1
                 };
 
                 /* Envoyer fichier */
+                byte[] bytes = System.IO.File.ReadAllBytes(fileName);
                 Submission submission = new Submission();
-                submission.submit(fileName);
+                             
+                Packet packet = new Packet(0, 0, false, false, bytes.Length, Encoding.ASCII.GetBytes(fileName));
+                socket.Send(packet.BuildPacket());
+                while (!CommunicationBase.Handshake)
+                {
+
+                }
+
+                submission.submit(bytes, socket);
             }
 
             else
