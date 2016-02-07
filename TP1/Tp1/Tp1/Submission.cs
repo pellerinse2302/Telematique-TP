@@ -24,13 +24,14 @@ namespace Tp1
                     if (received.packet.AckNumber == window.Window.Peek().SequenceNumber)
                     {
                         window.Forward();
+                        Console.WriteLine(received.packet.AckNumber);
                     }
                 }
             });
 
             for(int i = 0; i < loop; i++)
             {
-                Packet packet = new Packet(i+1, 0, false, false, Convert.ToInt32(bytes.Length), Extensions.SubArray(bytes, i, 1024*(i+1)));
+                Packet packet = new Packet(i+1, 0, false, false, Convert.ToInt32(1024), Extensions.SubArray(bytes, 1024*i, 1024));
                 //byte[] packetToSend = packet.BuildPacket();
                 while (!window.CanForward)
                 {
@@ -40,6 +41,14 @@ namespace Tp1
                 socket.Send(packet.BuildPacket());
             }
 
+            Packet extraPacket = new Packet(loop+1, 0, true, false, extraBytes, Extensions.SubArray(bytes, 1024*(loop), extraBytes));
+            while (!window.CanForward)
+            {
+
+            }
+            window.InsertPacket(extraPacket);
+            socket.Send(extraPacket.BuildPacket());
+            
         }
     }
 }
