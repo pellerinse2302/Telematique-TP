@@ -19,7 +19,7 @@ namespace Tp1
                 {
                     var received = await server.Receive();
 
-                    server.Reply(new Packet(0, received.packet.SequenceNumber, false, true, 0, null).BuildPacket(), received.Sender);
+                    server.Reply(new Packet(0, received.packet.SequenceNumber, false, true, 0, new byte[0]).BuildPacket(), received.Sender);
                     Console.WriteLine(received.Message);
                     if (received.Message == "quit")
                         break;
