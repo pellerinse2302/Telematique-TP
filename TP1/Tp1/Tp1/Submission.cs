@@ -30,8 +30,8 @@ namespace Tp1
 
             for(int i = 0; i < loop; i++)
             {
-                Packet packet = new Packet(i+1, 0, false, false, Convert.ToInt16(bytes.Length), Extensions.SubArray(bytes, i, 1024*(i+1)));
-                byte[] packetToSend = packet.BuildPacket();
+                Packet packet = new Packet(i+1, 0, false, false, Convert.ToInt32(bytes.Length), Extensions.SubArray(bytes, i, 1024*(i+1)));
+                //byte[] packetToSend = packet.BuildPacket();
                 while (!window.CanForward)
                 {
 
@@ -39,6 +39,7 @@ namespace Tp1
                 window.InsertPacket(packet);
                 socket.Send(packet.BuildPacket());
             }
+
         }
     }
 }

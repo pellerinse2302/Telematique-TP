@@ -13,12 +13,12 @@ namespace Tp1
         private Int32 _ackNumber;
         private bool _fin;
         private bool _sor;
-        private Int16 _dataLength;
+        private Int32 _dataLength;
         private Byte[] _data;
         #endregion
 
         #region Constructeur
-        public Packet(Int32 sequenceNumber, Int32 ackNumber, bool fin, bool sor, Int16 dataLength, Byte[] data)
+        public Packet(Int32 sequenceNumber, Int32 ackNumber, bool fin, bool sor, Int32 dataLength, Byte[] data)
         {
             this.SequenceNumber = sequenceNumber;
             this.AckNumber = ackNumber;
@@ -98,7 +98,7 @@ namespace Tp1
         /// <summary>
         /// Représente la longueur du DATA dans le packet
         /// </summary>
-        public Int16 DataLength
+        public Int32 DataLength
         {
             get
             {
@@ -151,8 +151,8 @@ namespace Tp1
             AckNumber = BitConverter.ToInt32(Extensions.SubArray(packet, 4, 4), 0);
             FIN = BitConverter.ToBoolean(Extensions.SubArray(packet, 8, 1), 0);
             SOR = BitConverter.ToBoolean(Extensions.SubArray(packet, 9, 1), 0);
-            DataLength = BitConverter.ToInt16(Extensions.SubArray(packet, 10, 2), 0);
-            DATA = Extensions.SubArray(packet, 12, DataLength);
+            DataLength = BitConverter.ToInt32(Extensions.SubArray(packet, 10, 4), 0);
+            DATA = Extensions.SubArray(packet, 14, DataLength);
         }
         #endregion
     }
