@@ -29,14 +29,12 @@ namespace Tp1
       //wait for reply messages from server and send them to console 
       Task.Factory.StartNew(async () =>
       {
-        while (true)
-        {
           var received = await socket.Receive();
           if (received.packet.AckNumber == 0)
           {
+              socket = UdpUser.ConnectTo(Credentials.IPAddress, BitConverter.ToInt32(received.packet.DATA, 0));
             CommunicationBase.Handshake = true;
           }
-        }
       });
 
       if (choiceTask == 1)
