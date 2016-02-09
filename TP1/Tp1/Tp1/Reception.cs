@@ -17,39 +17,38 @@ namespace Tp1
       Task.Factory.StartNew(async () =>
       {
         var FIN = false;
+        bool endFile = false;
+        int counter = 0;
 
         while (!FIN)
         {
           var received = await receiver.Receive();
 
-          bytes[received.packet.SequenceNumber] = received.packet.DATA;
-          receiver.Reply(new Packet(0, received.packet.SequenceNumber, false, false, 0, new byte[0]).BuildPacket(), received.Sender);
+          if (!bytes.Keys.Contains(received.packet.SequenceNumber))
+          {
+            bytes[received.packet.SequenceNumber] = received.packet.DATA;
+            counter++;
+          }
           
-          //if (checkIfCompleted(bytes.ToArray()))
-          //{
-          //  FIN = true;
+          receiver.Reply(new Packet(0, received.packet.SequenceNumber, false, false, 0, new byte[0]).BuildPacket(), received.Sender);
 
-          //  byte[] file;
+          if(received.packet.FIN == true)
+          {
+            endFile = true;
+          }
 
+          if (bytes.Keys.Max() == counter && endFile)
+          {
+            FIN = true;
 
-          //  System.IO.FileStream fileStream = new System.IO.FileStream(fileName, System.IO.FileMode.Create, System.IO.FileAccess.Write);
-          //  fileStream.Write(file, 0, file.len);
-          //  fileStream.Close();
-          //}
+            byte[] file = Extensions.Combine(bytes.Values.ToArray());
+
+            System.IO.FileStream fileStream = new System.IO.FileStream(fileName, System.IO.FileMode.Create, System.IO.FileAccess.Write);
+            fileStream.Write(file, 0, file.Length);
+            fileStream.Close();
+          }
         }
       });
-    }
-
-    public Boolean checkIfCompleted(Byte[][] bytes)
-    {
-      for (int i = 0; i < bytes.Length; i++)
-      {
-        if (bytes[i].Length == 0)
-        {
-          return false;
-        }
-      }
-      return true;
     }
   }
 }
