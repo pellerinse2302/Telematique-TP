@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Tp1
@@ -21,7 +21,7 @@ namespace Tp1
 
                     if(received.packet.SOR == false)
                     {
-                        var receiver = new UdpListener(); //Plante ici
+                        UdpListener receiver = new UdpListener(new IPEndPoint(IPAddress.Any, 0));
 
                         receiver.Reply(new Packet(0, received.packet.SequenceNumber, false, false, 0, new byte[0]).BuildPacket(), received.Sender);
 
@@ -37,7 +37,7 @@ namespace Tp1
                         submission.submit(bytes, sender);
                     }
 
-                    server.Reply(new Packet(0, received.packet.SequenceNumber, false, true, 0, new byte[0]).BuildPacket(), received.Sender);
+                    //server.Reply(new Packet(0, received.packet.SequenceNumber, false, true, 0, new byte[0]).BuildPacket(), received.Sender);
                     Console.WriteLine(received.Message);
                     if (received.Message == "quit")
                         break;
