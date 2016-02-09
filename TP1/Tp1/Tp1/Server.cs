@@ -17,11 +17,11 @@ namespace Tp1
             {
                 while (true)
                 {
-                    var received = await server.Receive();
+                    Received received = await server.Receive();
 
                     if(received.packet.SOR == false)
                     {
-                        var receiver = new UdpListener();
+                        var receiver = new UdpListener(); //Plante ici
 
                         receiver.Reply(new Packet(0, received.packet.SequenceNumber, false, false, 0, new byte[0]).BuildPacket(), received.Sender);
 
