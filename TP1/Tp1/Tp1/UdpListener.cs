@@ -13,8 +13,8 @@ namespace Tp1
         private IPEndPoint _listenOn;
 
         public UdpListener()
-            : this(new IPEndPoint(IPAddress.Any, 32123))
         {
+            Client = new UdpClient();
         }
 
         public UdpListener(IPEndPoint endpoint)
