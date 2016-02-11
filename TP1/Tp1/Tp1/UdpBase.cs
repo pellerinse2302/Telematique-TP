@@ -9,7 +9,7 @@ namespace Tp1
 {
     abstract class UdpBase
     {
-        protected UdpClient Client;
+        public UdpClient Client;
 
         protected UdpBase()
         {
