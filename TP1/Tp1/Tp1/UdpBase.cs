@@ -1,31 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Tp1
 {
-    abstract class UdpBase
+  abstract class UdpBase
+  {
+    public UdpClient Client;
+
+    protected UdpBase()
     {
-        public UdpClient Client;
-
-        protected UdpBase()
-        {
-            Client = new UdpClient();
-        }
-
-        public async Task<Received> Receive()
-        {
-            var result = await Client.ReceiveAsync();
-            return new Received()
-            {
-                //Message = Encoding.ASCII.GetString(result.Buffer, 0, result.Buffer.Length),
-                Message = string.Empty,
-                packet = new Packet(result.Buffer),
-                Sender = result.RemoteEndPoint
-            };
-        }
+      Client = new UdpClient();
     }
+
+    public async Task<Received> Receive()
+    {
+      var result = await Client.ReceiveAsync();
+      return new Received()
+      {
+        Message = string.Empty,
+        packet = new Packet(result.Buffer),
+        Sender = result.RemoteEndPoint
+      };
+    }
+
+    public void Reply(byte[] message, IPEndPoint endpoint)
+    {
+      Client.Send(message, message.Length, endpoint);
+    }
+
+    public void Send(byte[] message)
+    {
+      Client.Send(message, message.Length);
+    }
+    public void Send(byte[] message, string ipAddress, int port)
+    {
+      Client.Send(message, message.Length, new IPEndPoint(IPAddress.Parse(ipAddress), port));
+    }
+  }
 }

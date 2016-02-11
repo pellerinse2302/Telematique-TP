@@ -9,10 +9,11 @@ namespace Tp1
 {
   class Reception
   {
-    public void receive(UdpListener receiver, string fileName, Int32 fileSize)
+    public bool receive(UdpListener receiver, string fileName, Int32 fileSize)
     {
       //Byte[][] bytes = new Byte[fileSize/1024][];
       SortedDictionary<Int32, Byte[]> bytes = new SortedDictionary<int, byte[]>();
+      bool endReception = false;
 
       Task.Factory.StartNew(async () =>
       {
@@ -46,9 +47,12 @@ namespace Tp1
             System.IO.FileStream fileStream = new System.IO.FileStream(fileName, System.IO.FileMode.Create, System.IO.FileAccess.Write);
             fileStream.Write(file, 0, file.Length);
             fileStream.Close();
+            endReception = true;
           }
         }
       });
+      while (!endReception) { }
+      return endReception;
     }
   }
 }

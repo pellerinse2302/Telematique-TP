@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace Tp1
 {
@@ -23,22 +24,22 @@ namespace Tp1
       string fileName;
       Console.WriteLine("\nEntrez le nom du fichier à traiter");
       fileName = Console.ReadLine();
-
-      UdpUser socket = UdpUser.ConnectTo(Credentials.IPAddress, 32123);
-
-      //wait for reply messages from server and send them to console 
-      Task.Factory.StartNew(async () =>
+      
+      if (choiceTask == 1)
       {
+        UdpUser socket = UdpUser.ConnectTo(Credentials.IPAddress, 32123);
+        byte[] fileNameString = Encoding.ASCII.GetBytes(Path.GetFileName(Path.Combine(fileName)));
+        //wait for reply messages from server and send them to console 
+        Task.Factory.StartNew(async () =>
+        {
           var received = await socket.Receive();
           if (received.packet.AckNumber == 0)
           {
-              socket = UdpUser.ConnectTo(Credentials.IPAddress, BitConverter.ToInt32(received.packet.DATA, 0));
+            socket = UdpUser.ConnectTo(Credentials.IPAddress, BitConverter.ToInt32(received.packet.DATA, 0));
             CommunicationBase.Handshake = true;
           }
-      });
+        });
 
-      if (choiceTask == 1)
-      {
         /* On vérifie si le fichier existe. Si non, on redemande un nom de fichier existant à l'infini */
         while (!File.Exists(Path.Combine(fileName)))
         {
@@ -48,8 +49,8 @@ namespace Tp1
 
         /* Envoyer fichier */
         byte[] bytes = System.IO.File.ReadAllBytes(fileName);
-        byte[] fileNameString = Encoding.ASCII.GetBytes(Path.GetFileName(Path.Combine(fileName)));
-                Submission submission = new Submission();
+        
+        Submission submission = new Submission();
 
         Packet packet = new Packet(0, 0, false, false, fileNameString.Length, fileNameString);
         socket.Send(packet.BuildPacket());
@@ -64,8 +65,27 @@ namespace Tp1
 
       else
       {
-        /* Envoyer au serveur qu'on souhaite recevoir un fichier */
-        //client.Send("Je souhaite recevoir ce fichier " + fileName);
+        UdpListener receiver = new UdpListener();
+        bool endReception = false;
+        byte[] fileNameString = Encoding.ASCII.GetBytes(fileName);
+
+        Packet packet = new Packet(0, 0, false, true, fileNameString.Length, fileNameString);
+        receiver.Send(packet.BuildPacket(), Credentials.IPAddress, 32123);
+        Task.Factory.StartNew(async () =>
+        {
+          Received received = await receiver.Receive();
+          if (received.packet.SOR == false)
+          {
+            receiver.Reply(new Packet(0, received.packet.SequenceNumber, false, false, 0, new byte[0]).BuildPacket(), received.Sender);
+
+            Reception reception = new Reception();
+            endReception = reception.receive(receiver, System.Text.Encoding.UTF8.GetString(received.packet.DATA), received.packet.DataLength);
+          }
+        });
+        while (!endReception)
+        {
+
+        }
       }
     }
   }
