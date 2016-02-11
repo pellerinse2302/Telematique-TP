@@ -17,15 +17,6 @@ namespace Tp1
             return connection;
         }
 
-        public void Send(string message)
-        {
-            var datagram = Encoding.ASCII.GetBytes(message);
-            Client.Send(datagram, datagram.Length);
-        }
 
-        public void Send(byte[] message)
-        {
-            Client.Send(message, message.Length);
-        }
     }
 }
