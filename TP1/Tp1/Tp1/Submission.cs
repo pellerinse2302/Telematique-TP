@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Linq;
 
 namespace Tp1
 {
   class Submission
   {
+
     public void submit(byte[] bytes, UdpUser socket)
     {
       SlidingWindow window = new SlidingWindow();
@@ -22,6 +24,7 @@ namespace Tp1
           if (received.packet.AckNumber == window.Window.Peek().SequenceNumber)
           {
             window.Forward();
+            window.LastAck = received.packet.AckNumber;
             Console.WriteLine(String.Format("{0:0.00}", (received.packet.AckNumber/(decimal)loop+1)*100) + "%");
           }
         }
@@ -48,12 +51,17 @@ namespace Tp1
         }
         if (timer.Enabled == false)
         {
-          i = i - 5;
+          i = window.LastAck;
+          //i = i - 5;
           if (i < -1) { i = -1; }
         }
         else
         {
-          window.InsertPacket(packet);
+          if (window.Window.FirstOrDefault(x => x.SequenceNumber == packet.SequenceNumber) == null)
+          {
+            window.InsertPacket(packet);
+          }
+          
           socket.Send(packet.BuildPacket());
         }
         timer.Close();
