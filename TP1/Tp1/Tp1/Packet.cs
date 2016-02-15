@@ -18,6 +18,8 @@ namespace Tp1
     #endregion
 
     #region Constructeur
+    public Packet() { }
+
     public Packet(Int32 sequenceNumber, Int32 ackNumber, bool fin, bool sor, Int32 dataLength, Byte[] data)
     {
       this.SequenceNumber = sequenceNumber;
