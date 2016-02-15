@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Tp1
 {
@@ -45,7 +41,7 @@ namespace Tp1
         {
             get
             {
-                return Window.Count < 3;
+                return Window.Count < 4;
             }
         }
         #endregion
