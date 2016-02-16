@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tp1
 {
-  public class Packet
+  public class Packet : IComparable
   {
     #region Variables privées
     private Int32 _sequenceNumber;
@@ -155,6 +155,22 @@ namespace Tp1
       SOR = BitConverter.ToBoolean(Extensions.SubArray(packet, 9, 1), 0);
       DataLength = BitConverter.ToInt32(Extensions.SubArray(packet, 10, 4), 0);
       DATA = Extensions.SubArray(packet, 14, DataLength);
+    }
+
+    public int CompareTo(object obj)
+    {
+      if (obj == null)
+        return 0;
+      Packet autrePacket = obj as Packet;
+      if (autrePacket != null)
+      {
+        return this.SequenceNumber.CompareTo(autrePacket.SequenceNumber);
+      }
+      else
+      {
+        throw new ArgumentException("Object is not a Packet!");
+      }
+
     }
     #endregion
   }

@@ -58,17 +58,7 @@ namespace Tp1
     {
       get
       {
-        bool result = false;
-        try
-        {
-          result = Window.Count < 4 || LastAck + 1 == Window.Peek().SequenceNumber;
-        }
-        catch (Exception ex)
-        {
-
-        }
-
-        return result;
+        return Window.Count < 4;
       }
     }
     #endregion
