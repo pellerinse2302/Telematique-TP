@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Timers;
 using System.Linq;
+using System.Globalization;
 
 namespace Tp1
 {
@@ -28,7 +29,7 @@ namespace Tp1
 
               window.Forward();
               window.LastAck = received.packet.AckNumber;
-              Console.WriteLine(String.Format(String.Format("{0:P2}.", (received.packet.AckNumber / (Decimal)loop + 1))));
+              Console.WriteLine(String.Format((received.packet.AckNumber / (Decimal)(loop + 1)).ToString("P", CultureInfo.InvariantCulture)));
             }
           }
 
