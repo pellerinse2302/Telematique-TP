@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Linq;
+using System.Globalization;
 
 namespace Tp1
 {
   class Submission
   {
+
     public void submit(byte[] bytes, UdpUser socket)
     {
       SlidingWindow window = new SlidingWindow();
@@ -19,11 +22,17 @@ namespace Tp1
         while (true)
         {
           var received = await socket.Receive();
-          if (received.packet.AckNumber == window.Window.Peek().SequenceNumber)
+          //lock (window)
           {
-            window.Forward();
-            Console.WriteLine(String.Format("{0:0.00}", (received.packet.AckNumber/(decimal)loop+1)*100) + "%");
+            if (received.packet.AckNumber == window.Window.Peek().SequenceNumber)
+            {
+
+              window.Forward();
+              window.LastAck = received.packet.AckNumber;
+              Console.WriteLine(String.Format((received.packet.AckNumber / (Decimal)(loop + 1)).ToString("P", CultureInfo.InvariantCulture)));
+            }
           }
+
         }
       });
 
@@ -39,7 +48,9 @@ namespace Tp1
           packet = new Packet(i + 1, 0, false, false, Convert.ToInt32(1024), Extensions.SubArray(bytes, 1024 * i, 1024));
         }
 
-        Timer timer = new Timer(500);
+        socket.Send(packet.BuildPacket());
+
+        Timer timer = new Timer(1000);
         timer.Elapsed += OnTimedEvent;
         timer.Start();
         while (!window.CanForward && timer.Enabled == true)
@@ -48,13 +59,22 @@ namespace Tp1
         }
         if (timer.Enabled == false)
         {
-          i = i - 5;
-          if (i < -1) { i = -1; }
+          i = window.Window.Peek().SequenceNumber - 2;
+          //i = i - 5;
+          //if (i < -1) { i = -1; }
         }
         else
         {
-          window.InsertPacket(packet);
-          socket.Send(packet.BuildPacket());
+          lock (window)
+          {
+            if ((window.Window.Count == 0) ||
+              (packet.SequenceNumber > window.Window.Min().SequenceNumber))
+            {
+              window.InsertPacket(packet);
+            }
+          }
+
+
         }
         timer.Close();
       }
