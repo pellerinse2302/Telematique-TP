@@ -21,12 +21,17 @@ namespace Tp1
         while (true)
         {
           var received = await socket.Receive();
-          if (received.packet.AckNumber == window.Window.Peek().SequenceNumber)
+          //lock (window)
           {
-            window.Forward();
-            window.LastAck = received.packet.AckNumber;
-            Console.WriteLine(String.Format("{0:0.00}", (received.packet.AckNumber/(decimal)loop+1)*100) + "%");
+            if (received.packet.AckNumber == window.Window.Peek().SequenceNumber)
+            {
+
+              window.Forward();
+              window.LastAck = received.packet.AckNumber;
+              Console.WriteLine(String.Format(String.Format("{0:P2}.", (received.packet.AckNumber / (Decimal)loop + 1))));
+            }
           }
+
         }
       });
 
@@ -42,7 +47,9 @@ namespace Tp1
           packet = new Packet(i + 1, 0, false, false, Convert.ToInt32(1024), Extensions.SubArray(bytes, 1024 * i, 1024));
         }
 
-        Timer timer = new Timer(500);
+        socket.Send(packet.BuildPacket());
+
+        Timer timer = new Timer(1000);
         timer.Elapsed += OnTimedEvent;
         timer.Start();
         while (!window.CanForward && timer.Enabled == true)
@@ -51,18 +58,22 @@ namespace Tp1
         }
         if (timer.Enabled == false)
         {
-          i = window.LastAck;
+          i = window.Window.Peek().SequenceNumber - 2;
           //i = i - 5;
-          if (i < -1) { i = -1; }
+          //if (i < -1) { i = -1; }
         }
         else
         {
-          if (window.Window.FirstOrDefault(x => x.SequenceNumber == packet.SequenceNumber) == null)
+          lock (window)
           {
-            window.InsertPacket(packet);
+            if ((window.Window.Count == 0) ||
+              (packet.SequenceNumber > window.Window.Min().SequenceNumber))
+            {
+              window.InsertPacket(packet);
+            }
           }
-          
-          socket.Send(packet.BuildPacket());
+
+
         }
         timer.Close();
       }
